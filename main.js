@@ -5,7 +5,6 @@ var characterArt2 = new Array(50);
 var canvas;
 var resetButton;
 var modeButtons = new Array(3);
-var test;
 
 function preload() {
   for (var i = 0; i < bgArt.length; i++) {
@@ -23,12 +22,11 @@ function setup() {
 }
 
 function draw() {
-  if (level == -1) { //select mode
+  if (level == -1) { // select mode
     background(bgArt[0]);
-    displayButtons();
-  } else if (level < 100) { //drafts
+    displayModeButtons();
+  } else if (level < 100) { //game modes
     background(bgArt[1]);
-
   } else { //fight
     background(bgArt[2]);
   }
@@ -43,7 +41,7 @@ function createButtons() {
   modeButtons[2] = new modeButton(600, 300, 2, "3v3 All Random");
 }
 
-function displayButtons() {
+function displayModeButtons() {
   for (var i = 0; i < modeButtons.length; i++) {
     modeButtons[i].show();
   }
@@ -53,7 +51,7 @@ function mousePressed() {
   for (var i = 0; i < modeButtons.length; i++) {
     if (modeButtons[i].contains(mouseX, mouseY)) {
       level = modeButtons[i].mode;
-      console.log(level);
+      break;
     }
   }
 }
