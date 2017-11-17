@@ -1,24 +1,29 @@
-function characterButton(x, y, mode, txt) {
+function characterButton(x, y, index) {
   this.x = x;
   this.y = y;
-  this.w = w;
-  this.h = h;
-  this.mode = mode;
-  this.txt = txt;
+  this.index=index;
+  this.w = 30;
+  this.h = 50;
+  this.pinged = false;
 }
 
 characterButton.prototype.show = function() {
-  fill(200);
-  rect(this.x, this.y, this.w, this.h);
-  fill(0);
-  textSize(20);
-  text(this.txt, this.x + (this.w / 3), this.y + (this.h / 2));
+if(this.index<19){
+  image(characterArt[this.index],this.x,this.y,this.w,this.h);
+}
+else{
+  image(characterArt[this.index-19],this.x,this.y,this.h,this.w);
+}
+  if(this.pinged){
+    showBorder();
+  }
 }
 
 characterButton.prototype.contains = function(x, y) {
   return (x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.h);
 }
 
-characterButtom.prototype.showBorder = function(){
-    
+characterButton.prototype.showBorder = function(){
+  stroke([0,255,0]);
+  strokeWeight(3);
 }
