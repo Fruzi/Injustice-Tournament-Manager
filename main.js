@@ -15,7 +15,7 @@ function preload() {
   characterRow1 = new characterRow(MAX_CHARACTER_THUMBART, 60, 0)
   characterRow2 = new characterRow(MAX_CHARACTER_THUMBART ,60 ,60)
   var path;
-  for (var i = 0; i < 15; i++) {
+  for (var i = 0; i < 10; i++) {
     if(i<=18){
       path = 'assets/characters/character' + '_a' + i + '.jpg';
     }
@@ -38,7 +38,7 @@ function draw() {
     displayModeButtons();
   } else if (level < 100) { //game modes
     background(bgArt[1]);
-    displayCharacterThumbs();
+    //displayCharacterThumbs();
   } else { //fight
     background(bgArt[2]);
   }
