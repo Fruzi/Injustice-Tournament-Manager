@@ -18,3 +18,7 @@ characterButton.prototype.show = function() {
 characterButton.prototype.contains = function(x, y) {
   return (x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.h);
 }
+
+characterButtom.prototype.showBorder = function(){
+    
+}
