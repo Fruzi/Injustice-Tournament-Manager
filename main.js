@@ -15,16 +15,13 @@ var submitted = false;
 function preload() {
   for (var i = 0; i < bgArt.length; i++) {
     bgArt[i] = loadImage('assets/bg/bg' + i + '.jpg');
-  } <<
-  << << < HEAD
-    // for (var i = 0; i < 50; i++) {
-    //   characterArt1[i] = loadImage('assets/characters/character' + i + '.jpg');
-    // }
-    //TODO load buttons art
-    ===
-    === =
-    characterRow1 = new characterRow(MAX_CHARACTER_THUMBART, 60, 0)
-  characterRow2 = new characterRow(MAX_CHARACTER_THUMBART, 60, 60)
+  }
+  // for (var i = 0; i < 50; i++) {
+  //   characterArt1[i] = loadImage('assets/characters/character' + i + '.jpg');
+  // }
+  //TODO load buttons art
+  characterRow1 = new characterRow(MAX_CHARACTER_THUMBART, 60, 0);
+  characterRow2 = new characterRow(MAX_CHARACTER_THUMBART, 60, 60);
   var path;
   for (var i = 0; i < 10; i++) {
     if (i <= 18) {
@@ -33,19 +30,15 @@ function preload() {
       path = 'assets/characters/character' + '_b' + i - 19 + '.jpg';
     }
     characterArt[i] = loadImage(path, console.log("success image " + i), console.log("fail image " + i) /*loadImage('assets/characters/locked_character.js')*/ );
-  } >>>
-  >>> > cfeccaa5a261192f6052a2c8f013d8de6e0969d8
+  }
 }
 
 function setup() {
   canvas = createCanvas(1280 * 0.7, 720 * 0.7);
-  imageMode(CORNER); <<
-  << << < HEAD
+  imageMode(CORNER);
   createButtons();
-  createRules(); ===
-  === =
-  createModeButtons(); >>>
-  >>> > cfeccaa5a261192f6052a2c8f013d8de6e0969d8
+  createRules();
+  createModeButtons();
 }
 
 function draw() {
