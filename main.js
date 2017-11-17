@@ -5,6 +5,7 @@ var characterArt2 = new Array(50);
 var canvas;
 var resetButton;
 var modeButtons = new Array(3);
+var test;
 
 function preload() {
   for (var i = 0; i < bgArt.length; i++) {
