@@ -1,2 +1,2 @@
-"# Project-Leader" 
-This is a fine README.
+"# Project-Leader"
+This is a fine README. now with some notes
