@@ -123,6 +123,6 @@ function mousePressed() {
 
 function reset() {
   level = 0;
-  resetRulls();
+  resetRules();
   roster.reset();
 }

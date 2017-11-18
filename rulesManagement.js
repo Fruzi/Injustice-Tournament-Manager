@@ -7,28 +7,55 @@ var player1;
 var player2;
 
 function createRules() {
+  var c = " chooses:";
+  var b = " bans:";
+  var c2 = " chooses again:";
+  var b2 = " bans again:";
   rules = [];
-    if (random([0, 1]) == 0) {
-        player1 = input1.value();
-        player2 = input2.value();
-    } else {
-        player2 = input1.value();
-        player1 = input2.value();
-    }
-    if (level == 1) { //3v3 draft
-      rules.push(player1 + " chooses:");
-      rules.push(player2 + " chooses:");
-      rules.push(player2 + " bans:");
-      rules.push(player1 + " chooses:");
-      rules.push(player1 + " bans:");
-      rules.push(player2 + " chooses:");
-      rules.push(player2 + " bans:");
-      rules.push(player1 + " chooses:");
-      rules.push(player1 + " bans:");
-      rules.push(player2 + " chooses:");
-      pickOrder=[1,2,-2,1,-1,2,-2,1,-1,2];
-      teamSize=3;
-      banSize=2;
+  if (random([0, 1]) == 0) {
+    player1 = input1.value();
+    player2 = input2.value();
+  }
+  else {
+    player2 = input1.value();
+    player1 = input2.value();
+  }
+  if (level == 1) { //3v3 draft
+    rules.push(player1 + c);
+    rules.push(player2 + c);
+    rules.push(player2 + b);
+    rules.push(player1 + c);
+    rules.push(player1 + b);
+    rules.push(player2 + c);
+    rules.push(player2 + b);
+    rules.push(player1 + c);
+    rules.push(player1 + b);
+    rules.push(player2 + c);
+    pickOrder=[1,2,-2,1,-1,2,-2,1,-1,2];
+    teamSize=3;
+    banSize=2;
+  }
+  else if(level==2){ //5v5 draft
+      rules.push(player1 + c);
+      rules.push(player1 + b);
+      rules.push(player2 + c);
+      rules.push(player2 + b);
+      rules.push(player2 + b2);
+      rules.push(player1 + c);
+      rules.push(player1 + c2);
+      rules.push(player1 + b);
+      rules.push(player2 + c);
+      rules.push(player2 + c2);
+      rules.push(player1 + c);
+      rules.push(player1 + c2);
+      rules.push(player1 + b);
+      rules.push(player2 + c);
+      rules.push(player2 + c2);
+
+
+      pickOrder=[1,-1,2,-2,-2,1,1,-1,2,2,-2,1,1,-1,2,2];
+      teamSize=5;
+      banSize=3;
   }
   rulesCreated = true;
   playerstacks1.createStacks(teamSize, banSize);
@@ -62,10 +89,11 @@ function updateRules() {
   }
 }
 
-function resetRulls(){
+function resetRules(){
     teamSize=0;
     banSize=0;
     rules = [];
+    pickOrder=[];
     rulesCreated = false;
     eventsCounter = 0;
 }
