@@ -1,19 +1,27 @@
 var rules = new Array();
+var rulesCreated = false;
 
 function createRules() {
-  rules.push("player 1 chooses:");
-  rules.push("player 2 chooses:");
-  rules.push("player 2 bans:");
-  rules.push("player 1 chooses:");
-  rules.push("player 1 bans:");
-  rules.push("player 2 chooses:");
-  rules.push("player 2 bans:");
-  rules.push("player 1 chooses:");
-  rules.push("player 1 bans:");
-  rules.push("player 2 chooses:");
+  rules = [];
+  if (level == 0) { //3v3 draft
+    rules.push("player 1 chooses:");
+    rules.push("player 2 chooses:");
+    rules.push("player 2 bans:");
+    rules.push("player 1 chooses:");
+    rules.push("player 1 bans:");
+    rules.push("player 2 chooses:");
+    rules.push("player 2 bans:");
+    rules.push("player 1 chooses:");
+    rules.push("player 1 bans:");
+    rules.push("player 2 chooses:");
+  }
+  rulesCreated = true;
 }
 
 function updateRules() {
+  if (!rulesCreated) {
+    createRules();
+  }
   if (submitted) {
     submitted = false;
     eventsCounter++;

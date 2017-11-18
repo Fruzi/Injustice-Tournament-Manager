@@ -23,7 +23,6 @@ function preload() {
 function setup() {
   canvas = createCanvas(1280 * 0.7, 720 * 0.7);
   imageMode(CORNER);
-  createRules(); //TODO needs to move, different rules to every mode
   createModeButtons();
   for (var i = 0; i < MAX_CHARACTER_THUMBART * 2; i++) {
     characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
@@ -32,8 +31,9 @@ function setup() {
 
 function draw() {
   if (level == 100) { //fight mode
+    background(bgArt[2]);
     console.log("fightmode");
-    level = -1;
+    updateRules();
   } else if (level == -1) { // select mode
     background(bgArt[0]);
     displayModeButtons();
@@ -42,8 +42,6 @@ function draw() {
     submitButton.show();
     updateRules();
     displayCharacterThumbs();
-  } else { //fight
-    background(bgArt[2]);
   }
 }
 
@@ -64,7 +62,7 @@ function displayModeButtons() {
 }
 
 function mousePressed() {
-  console.log("ping");
+  console.log("mousePressed");
   if (level >= 0) {
     if (submitButton.contains(mouseX, mouseY)) {
       submitted = true;
@@ -87,5 +85,6 @@ function displayCharacterThumbs() {
 function reset() {
   level = -1;
   rules = [];
+  rulesCreated = false;
   eventsCounter = 0;
 }
