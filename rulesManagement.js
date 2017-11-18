@@ -46,6 +46,7 @@ function createRules() {
         rules.push(player1 + b);
         rules.push(player2 + c);
         rules.push(player2 + c2);
+        rules.push(player2 + b);
         rules.push(player1 + c);
         rules.push(player1 + c2);
         rules.push(player1 + b);
@@ -112,7 +113,7 @@ function autoAssign() {
         picksAndBans1[picksAndBans1.length] = rand;
     }
     while (picksAndBans2.length < teamSize + banSize) {
-        var rand = Math.ceil(Math.random() * NUM_CHARACTERS);
+        rand = Math.ceil(Math.random() * NUM_CHARACTERS);
         if ((picksAndBans2.indexOf(rand) > -1) || picksAndBans1.indexOf(rand)>-1) continue;
         picksAndBans2[picksAndBans2.length] = rand;
     }
