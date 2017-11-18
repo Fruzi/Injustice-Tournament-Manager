@@ -8,11 +8,7 @@ function characterButton(x, y, index) {
 }
 
 characterButton.prototype.show = function() {
-  if (this.index < 19) {
-    image(characterArt[this.index], this.x, this.y, this.w, this.h);
-  } else {
-    image(characterArt[this.index - 19], this.x, this.y, this.h, this.w);
-  }
+  image(characterArt[this.index], this.x, this.y, this.w, this.h);
   if (this.pinged) {
     showBorder();
   }
