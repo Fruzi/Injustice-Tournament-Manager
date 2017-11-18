@@ -8,7 +8,6 @@ var canvas;
 var resetButton;
 var modeButtons = new Array(3);
 var submitButton;
-var rules = new Array();
 var eventsCounter = 0;
 var submitted = false;
 
@@ -24,11 +23,11 @@ function preload() {
 function setup() {
   canvas = createCanvas(1280 * 0.7, 720 * 0.7);
   imageMode(CORNER);
-  createRules();
+  createRules(); //TODO needs to move, different rules to every mode
   createModeButtons();
-    for (var i = 0; i < MAX_CHARACTER_THUMBART*2; i++) {
-        characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
-    }
+  for (var i = 0; i < MAX_CHARACTER_THUMBART * 2; i++) {
+    characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
+  }
 }
 
 function draw() {
@@ -56,11 +55,6 @@ function createModeButtons() {
   modeButtons[1] = new modeButton(600, 200, 1, "5v5 Draft");
   modeButtons[2] = new modeButton(600, 300, 2, "3v3 All Random");
   submitButton = new SubmitButton(width / 2 - 50, height - 100, "Submit");
-}
-
-function createRules() {
-  rules.push("player 1 chooses:");
-  rules.push("player 2 bans:");
 }
 
 function displayModeButtons() {
@@ -94,28 +88,4 @@ function reset() {
   level = -1;
   rules = [];
   eventsCounter = 0;
-}
-
-function updateRules() {
-  if (submitted) {
-    submitted = false;
-    eventsCounter++;
-  }
-  if (level == 100) { //fight mode
-    push();
-    fill(255);
-    textSize(20);
-    text('fight', 50, 50);
-    pop();
-  } else if (level == 0) { //3v3 draft
-    push();
-    fill(255);
-    textSize(20);
-    text(rules[eventsCounter], 50, 50);
-    pop();
-    if (eventsCounter == rules.length) {
-      level = 100;
-      eventsCounter = 0;
-    }
-  }
 }
