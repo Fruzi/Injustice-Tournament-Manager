@@ -9,7 +9,7 @@ function CharacterRoster(size){
     this.number_of_rows = Math.ceil(size/this.number_of_ele_per_row);
     this.rows=new Array(this.number_of_rows);
     for(var i=0; i< this.number_of_rows; i++){
-        this.rows[i]=new CharacterRow(this.number_of_ele_per_row, i*this.number_of_ele_per_row, canvas_w*0.05, canvas_h*0.15+i*(thumb_h+y_space_between_thumbs));
+        this.rows[i]=new CharacterRow(this.number_of_ele_per_row, i*this.number_of_ele_per_row, thumb_w + x_space_between_thumbs, (i+1)*(thumb_h+y_space_between_thumbs));
     }
     this.updateUnowned();
 }
@@ -47,8 +47,8 @@ CharacterRoster.prototype.getCharacter_index = function(index){
 CharacterRoster.prototype.updatePing = function(mouseX,mouseY){
     for (var i=0; i<this.number_of_rows; i++){
         var j=this.rows[i].checkPinged(mouseX,mouseY);
-        if(j!=false){ //we found a character that was pinged, [i,j-1]
-            if(this.pinged!=false &&!this.getCharacter_ping().locked() && !this.alreadyPinged(i,j-1)){
+        if(j!==false){ //we found a character that was pinged, [i,j-1]
+            if(this.pinged!==false &&!this.getCharacter_ping().locked() && !this.alreadyPinged(i,j-1)){
                 this.getCharacter_ping().reset();
             }
             this.pinged = [i, j-1];
@@ -58,6 +58,6 @@ CharacterRoster.prototype.updatePing = function(mouseX,mouseY){
 
 
 CharacterRoster.prototype.alreadyPinged = function(i,j){
-    return (this.pinged[0]==i && this.pinged[1]==j);
+    return (this.pinged[0]===i && this.pinged[1]===j);
 };
 

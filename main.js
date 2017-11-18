@@ -25,7 +25,7 @@ function preload() {
     for (var i = 0; i < bgArt.length; i++) {
         bgArt[i] = loadImage('assets/bg/bg' + i + '.jpg');
     }
-    for (var i = 0; i < NUM_CHARACTERS; i++) {
+    for (i = 0; i < NUM_CHARACTERS; i++) {
         characterArt[i] = loadImage('assets/Thumbs/thumb' + i + '.jpg');
         portraits[i] = loadImage('assets/Portraits/portrait' + i + '.png');
     }
@@ -49,11 +49,11 @@ function draw() {
     if (level < 0) { //transition
         //transition();
     }
-    if (level == 100) { //fight mode
+    if (level === 100) { //fight mode
         background(bgArt[2]);
         displayInput(false);
         updateRules();
-    } else if (level == 0) { // select mode
+    } else if (level === 0) { // select mode
         background(bgArt[0]);
         displayModeButtons();
         displayInput(true);
@@ -72,9 +72,9 @@ function createModeButtons() {
     resetButton = createButton('RESET');
     resetButton.mousePressed(reset);
     resetButton.position(10, height - 15);
-    modeButtons[0] = new modeButton(600, 100, 1, "3v3 Draft");
-    modeButtons[1] = new modeButton(600, 200, 2, "5v5 Draft");
-    modeButtons[2] = new modeButton(600, 300, 3, "3v3 All Random");
+    modeButtons[0] = new ModeButton(600, 100, 1, "3v3 Draft");
+    modeButtons[1] = new ModeButton(600, 200, 2, "5v5 Draft");
+    modeButtons[2] = new ModeButton(600, 300, 3, "3v3 All Random");
     submitButton = new SubmitButton(width / 2 - 50, height - 100, "Submit");
 }
 
@@ -110,8 +110,8 @@ function mousePressed() {
             updateRules();
         }
         roster.updatePing(mouseX, mouseY);
-    } else if (level == 0) {
-        for (var i = 0; i < modeButtons.length; i++) {
+    } else if (level === 0) {
+        for (i = 0; i < modeButtons.length; i++) {
             if (modeButtons[i].contains(mouseX, mouseY)) {
                 level = modeButtons[i].mode;
                 break;

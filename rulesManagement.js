@@ -12,14 +12,14 @@ function createRules() {
     var c2 = " chooses again:";
     var b2 = " bans again:";
     rules = [];
-    if (random([0, 1]) == 0) {
+    if (random([0, 1]) === 0) {
         player1 = input1.value();
         player2 = input2.value();
     } else {
         player2 = input1.value();
         player1 = input2.value();
     }
-    if (level == 1) { //3v3 draft
+    if (level === 1) { //3v3 draft
         rules.push(player1 + c);
         rules.push(player2 + c);
         rules.push(player2 + b);
@@ -35,7 +35,7 @@ function createRules() {
         banSize = 2;
         playerstacks1.createStacks(teamSize, banSize);
         playerstacks2.createStacks(teamSize, banSize);
-    } else if (level == 2) { //5v5 draft
+    } else if (level === 2) { //5v5 draft
         rules.push(player1 + c);
         rules.push(player1 + b);
         rules.push(player2 + c);
@@ -59,7 +59,7 @@ function createRules() {
         banSize = 3;
         playerstacks1.createStacks(teamSize, banSize);
         playerstacks2.createStacks(teamSize, banSize);
-    } else if (level == 3) {
+    } else if (level === 3) {
         teamSize = 3;
         banSize = 0;
         autoAssign();
@@ -74,12 +74,12 @@ function updateRules() {
     if (submitted) {
         submitted = false;
         eventsCounter++;
-        if (eventsCounter == rules.length) {
+        if (eventsCounter === rules.length) {
             level = 100;
             eventsCounter = 0;
         }
     }
-    if (level == 100) { //fight mode
+    if (level === 100) { //fight mode
         push();
         fill(255);
         textSize(20);
