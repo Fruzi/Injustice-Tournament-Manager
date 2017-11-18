@@ -30,8 +30,6 @@ function setup() {
       characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
   }
   characterArt[characterArt.length] = loadImage('assets/characters/locked_character.jpg');
-  for (i = 0; i < MAX_CHARACTER_THUMBART * 2; i++) {
-      characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
   }
 }
 
