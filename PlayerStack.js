@@ -28,14 +28,7 @@ PlayerStack.prototype.createStacks = function (teamSize, banSize) {
     for (i = 0; i < banSize; i++) {
         initialBan.push(NUM_CHARACTERS);
     }
-    if (this.pos) {
-        this.pickRow = new CharacterRow1(initialTeam, (thumb_w + x_space_between_thumbs), canvas_h * 0.7);
-        this.banRow = new CharacterRow1(initialBan, (thumb_w + x_space_between_thumbs) + 1 / 2 * (teamSize - banSize) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7 - thumb_h - y_space_between_thumbs);
-    }
-    else {
-        this.pickRow = new CharacterRow1(initialTeam, canvas_w - (teamSize + 1) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7);
-        this.banRow = new CharacterRow1(initialBan, canvas_w - (teamSize + 1) * (thumb_w + x_space_between_thumbs) + 1 / 2 * (teamSize - banSize) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7 - thumb_h - y_space_between_thumbs);
-    }
+    this.createRow(initialTeam, initialBan);
 };
 
 PlayerStack.prototype.createStacksFromArr = function (arr, pick) {
@@ -47,14 +40,7 @@ PlayerStack.prototype.createStacksFromArr = function (arr, pick) {
     for (i;i<arr.length;i++){
         bans.push(arr[i]);
     }
-    if (this.pos) {
-        this.pickRow = new CharacterRow1(team, (thumb_w + x_space_between_thumbs), canvas_h * 0.7);
-        this.banRow = new CharacterRow1(bans, (thumb_w + x_space_between_thumbs) + 1 / 2 * (teamSize - banSize) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7 - thumb_h - y_space_between_thumbs);
-    }
-    else {
-        this.pickRow = new CharacterRow1(team, canvas_w - (teamSize + 1) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7);
-        this.banRow = new CharacterRow1(bans, canvas_w - (teamSize + 1) * (thumb_w + x_space_between_thumbs) + 1 / 2 * (teamSize - banSize) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7 - thumb_h - y_space_between_thumbs);
-    }
+    this.createRow(team, bans);
 };
 
 PlayerStack.prototype.show = function () {
@@ -67,4 +53,15 @@ PlayerStack.prototype.reset = function () {
     this.currBan = 0;
     this.pickRow = [];
     this.banRow = [];
+};
+
+PlayerStack.prototype.createRow = function(team, ban){
+    if (this.pos) {
+        this.pickRow = new CharacterRow1(team, (thumb_w + x_space_between_thumbs), canvas_h * 0.7);
+        this.banRow = new CharacterRow1(ban, (thumb_w + x_space_between_thumbs) + 1 / 2 * (teamSize - banSize) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7 - thumb_h - y_space_between_thumbs);
+    }
+    else {
+        this.pickRow = new CharacterRow1(team, canvas_w - (teamSize + 1) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7);
+        this.banRow = new CharacterRow1(ban, canvas_w - (teamSize + 1) * (thumb_w + x_space_between_thumbs) + 1 / 2 * (teamSize - banSize) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7 - thumb_h - y_space_between_thumbs);
+    }
 };
