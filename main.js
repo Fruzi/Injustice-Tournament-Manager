@@ -1,7 +1,7 @@
 var NUM_CHARACTERS = 38;
 var level = -1;
 var bgArt = new Array(3);
-var characterArt = new Array(NUM_CHARACTERS+1);
+var characterArt = new Array(NUM_CHARACTERS + 1);
 var portraits = new Array(NUM_CHARACTERS);
 var canvas;
 var resetButton;
@@ -9,44 +9,51 @@ var modeButtons = new Array(3);
 var submitButton;
 var eventsCounter = 0;
 var submitted = false;
-var thumb_h=60;
-var thumb_w=40;
+var thumb_h = 60;
+var thumb_w = 40;
 var x_space_between_thumbs = 1.07;
 var y_space_between_thumbs = 1.2;
 var roster;
 var canvas_w = 1280 * 0.7;
 var canvas_h = 720 * 0.7;
 //TODO add config screen to choose which champs are owned
-var unowned = [0,1,9,17,18,19,20,36,37];
+var unowned = [0, 1, 9, 17, 18, 19, 20, 36, 37];
 
 function preload() {
-    for (var i = 0; i < bgArt.length; i++) {
-        bgArt[i] = loadImage('assets/bg/bg' + i + '.jpg');
-    }
-    for (var i = 0; i < NUM_CHARACTERS; i++) {
-        characterArt[i] = loadImage('assets/Thumbs/thumb' + i + '.jpg');
-        portraits[i] = loadImage('assets/Portraits/portrait' + i + '.png');
-    }
-    characterArt[characterArt.length] = loadImage('assets/Thumbs/locked_character_thumb.jpg');
+  for (var i = 0; i < bgArt.length; i++) {
+    bgArt[i] = loadImage('assets/bg/bg' + i + '.jpg');
+  }
+  for (var i = 0; i < NUM_CHARACTERS; i++) {
+    characterArt[i] = loadImage('assets/Thumbs/thumb' + i + '.jpg');
+    portraits[i] = loadImage('assets/Portraits/portrait' + i + '.png');
+  }
+  characterArt[characterArt.length] = loadImage('assets/Thumbs/locked_character_thumb.jpg');
 }
 
 function setup() {
-    canvas = createCanvas(canvas_w, canvas_h);
-    imageMode(CORNER);
-    createModeButtons();
-    roster = new CharacterRoster(38);
+  canvas = createCanvas(canvas_w, canvas_h);
+  imageMode(CORNER);
+  createModeButtons();
+  roster = new CharacterRoster(38);
+  input1 = createInput('Player 1');
+  input1.size(100);
+  input2 = createInput('Player 2');
+  input2.size(100);
 }
 
 function draw() {
   if (level == 100) { //fight mode
     background(bgArt[2]);
     console.log("fightmode");
+    displayInput(false);
   } else if (level == -1) { // select mode
     background(bgArt[0]);
     displayModeButtons();
+    displayInput(true);
   } else if (level < 100) { //game modes
     background(bgArt[1]);
     submitButton.show();
+    displayInput(false);
     updateRules();
     roster.show();
   }
@@ -68,30 +75,40 @@ function displayModeButtons() {
   }
 }
 
+function displayInput(on) {
+  if (on) {
+    input1.position(width / 2, 100);
+    input2.position(width / 2, 140);
+  } else {
+    input1.hide();
+    input2.hide();
+  }
+}
+
 function mousePressed() {
   if (level >= 0) {
-      if (submitButton.contains(mouseX, mouseY) && roster.pinged) {
-          submitted = true;
-          //make the pinged char greyed out
-          roster.getCharacter_ping().pick();
-          updateRules();
+    if (submitButton.contains(mouseX, mouseY) && roster.pinged) {
+      submitted = true;
+      //make the pinged char greyed out
+      roster.getCharacter_ping().pick();
+      updateRules();
+    }
+    roster.checkPinged(mouseX, mouseY);
+  } else {
+    for (var i = 0; i < modeButtons.length; i++) {
+      if (modeButtons[i].contains(mouseX, mouseY)) {
+        level = modeButtons[i].mode;
+        break;
       }
-      roster.checkPinged(mouseX,mouseY);
-  }else {
-      for (var i = 0; i < modeButtons.length; i++) {
-          if (modeButtons[i].contains(mouseX, mouseY)) {
-              level = modeButtons[i].mode;
-              break;
-          }
-      }
+    }
   }
 }
 
 
 function reset() {
-    level = -1;
-    rules = [];
-    rulesCreated = false;
-    eventsCounter = 0;
-    roster.reset();
+  level = -1;
+  rules = [];
+  rulesCreated = false;
+  eventsCounter = 0;
+  roster.reset();
 }
