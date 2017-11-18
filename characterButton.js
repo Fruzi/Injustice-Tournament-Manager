@@ -43,19 +43,19 @@ CharacterButton.prototype.pickOrBan = function(){
     var action = pickOrder[eventsCounter];
     switch (action){
         case 1:
-            player1.pushChosen(this.index);
+            playerstacks1.pushChosen(this.index);
             this.picked=true;
             break;
         case 2:
-            player2.pushChosen(this.index);
+            playerstacks2.pushChosen(this.index);
             this.picked=true;
             break;
         case -1:
-            player1.pushBanned(this.index);
+            playerstacks1.pushBanned(this.index);
             this.banned=true;
             break;
         case -2:
-            player2.pushBanned(this.index);
+            playerstacks2.pushBanned(this.index);
             this.banned=true;
             break;
     }

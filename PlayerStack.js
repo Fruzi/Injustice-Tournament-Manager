@@ -10,7 +10,6 @@ function PlayerStack(pos){
 }
 
 PlayerStack.prototype.pushChosen = function(index){
-    //console.log(this.characterButtons[this.currPick]);
     this.pickRow.characterButtons[this.currPick].index=index;
     this.currPick++;
 };

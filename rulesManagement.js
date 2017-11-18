@@ -8,47 +8,31 @@ var player2;
 
 function createRules() {
   rules = [];
-<<<<<<< HEAD
-  if (level == 0) { //3v3 draft
-    rules.push("player 1 chooses:");
-    rules.push("player 2 chooses:");
-    rules.push("player 2 bans:");
-    rules.push("player 1 chooses:");
-    rules.push("player 1 bans:");
-    rules.push("player 2 chooses:");
-    rules.push("player 2 bans:");
-    rules.push("player 1 chooses:");
-    rules.push("player 1 bans:");
-    rules.push("player 2 chooses:");
-
-    pickOrder=[1,2,-2,1,-1,2,-2,1,-1,2];
-    teamSize=3;
-    banSize=2;
-=======
-  if (random([0, 1]) == 0) {
-    player1 = input1.value();
-    player2 = input2.value();
-  } else {
-    player2 = input1.value();
-    player1 = input2.value();
-  }
-
-  if (level == 1) { //3v3 draft
-    rules.push(player1 + " chooses:");
-    rules.push(player2 + " chooses:");
-    rules.push(player2 + " bans:");
-    rules.push(player1 + " chooses:");
-    rules.push(player1 + " bans:");
-    rules.push(player2 + " chooses:");
-    rules.push(player2 + " bans:");
-    rules.push(player1 + " chooses:");
-    rules.push(player1 + " bans:");
-    rules.push(player2 + " chooses:");
->>>>>>> 11e991569b69c48a0baa9d238cc30aa0784cc3d4
+    if (random([0, 1]) == 0) {
+        player1 = input1.value();
+        player2 = input2.value();
+    } else {
+        player2 = input1.value();
+        player1 = input2.value();
+    }
+    if (level == 1) { //3v3 draft
+      rules.push(player1 + " chooses:");
+      rules.push(player2 + " chooses:");
+      rules.push(player2 + " bans:");
+      rules.push(player1 + " chooses:");
+      rules.push(player1 + " bans:");
+      rules.push(player2 + " chooses:");
+      rules.push(player2 + " bans:");
+      rules.push(player1 + " chooses:");
+      rules.push(player1 + " bans:");
+      rules.push(player2 + " chooses:");
+      pickOrder=[1,2,-2,1,-1,2,-2,1,-1,2];
+      teamSize=3;
+      banSize=2;
   }
   rulesCreated = true;
-  player1.createStacks(teamSize, banSize);
-  player2.createStacks(teamSize, banSize);
+  playerstacks1.createStacks(teamSize, banSize);
+  playerstacks2.createStacks(teamSize, banSize);
 }
 
 function updateRules() {
