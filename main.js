@@ -22,14 +22,14 @@ var playerstacks2;
 var unowned = [0, 1, 9, 17, 18, 19, 20, 36, 37];
 
 function preload() {
-    for (var i = 0; i < bgArt.length; i++) {
-        bgArt[i] = loadImage('assets/bg/bg' + i + '.jpg');
-    }
-    for (var i = 0; i < NUM_CHARACTERS; i++) {
-        characterArt[i] = loadImage('assets/Thumbs/thumb' + i + '.jpg');
-        portraits[i] = loadImage('assets/Portraits/portrait' + i + '.png');
-    }
-    characterArt[NUM_CHARACTERS] = loadImage('assets/Thumbs/locked_character_thumb.jpg');
+  for (var i = 0; i < bgArt.length; i++) {
+    bgArt[i] = loadImage('assets/bg/bg' + i + '.jpg');
+  }
+  for (var i = 0; i < NUM_CHARACTERS; i++) {
+    characterArt[i] = loadImage('assets/Thumbs/thumb' + i + '.jpg');
+    portraits[i] = loadImage('assets/Portraits/portrait' + i + '.png');
+  }
+  characterArt[NUM_CHARACTERS] = loadImage('assets/Thumbs/locked_character_thumb.jpg');
 }
 
 function setup() {
@@ -48,8 +48,8 @@ function setup() {
 function draw() {
   if (level == 100) { //fight mode
     background(bgArt[2]);
-    console.log("fightmode");
     displayInput(false);
+    updateRules();
   } else if (level == 0) { // select mode
     background(bgArt[0]);
     displayModeButtons();
@@ -92,31 +92,29 @@ function displayInput(on) {
 }
 
 function mousePressed() {
-    if(level<0) {
-        for (var i = 0; i < modeButtons.length; i++) {
-            if (modeButtons[i].contains(mouseX, mouseY)) {
-                level = modeButtons[i].mode;
-                break;
-            }
-        }
+  if (level < 0) {
+    for (var i = 0; i < modeButtons.length; i++) {
+      if (modeButtons[i].contains(mouseX, mouseY)) {
+        level = modeButtons[i].mode;
+        break;
+      }
     }
-    else if (level > 0) {
-        if (submitButton.contains(mouseX, mouseY) && roster.pinged) {
-            submitted = true;
-            //make the pinged char greyed out
-            roster.getCharacter_ping().pickOrBan();
-            updateRules();
-        }
-        roster.updatePing(mouseX, mouseY);
-        }
-    else if (level == 0) {
-        for (var i = 0; i < modeButtons.length; i++) {
-            if (modeButtons[i].contains(mouseX, mouseY)) {
-                level = modeButtons[i].mode;
-                break;
-            }
-        }
+  } else if (level > 0) {
+    if (submitButton.contains(mouseX, mouseY) && roster.pinged) {
+      submitted = true;
+      //make the pinged char greyed out
+      roster.getCharacter_ping().pickOrBan();
+      updateRules();
     }
+    roster.updatePing(mouseX, mouseY);
+  } else if (level == 0) {
+    for (var i = 0; i < modeButtons.length; i++) {
+      if (modeButtons[i].contains(mouseX, mouseY)) {
+        level = modeButtons[i].mode;
+        break;
+      }
+    }
+  }
 
 }
 
