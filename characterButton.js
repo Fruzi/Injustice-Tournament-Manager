@@ -14,7 +14,7 @@ CharacterButton.prototype.show = function() {
         image(characterArt[this.index], this.x, this.y, this.w, this.h);
     }
     else{
-        image(characterArt[characterArt.length], this.x, this.y, this.w, this.h);
+        image(characterArt[characterArt.length-1], this.x, this.y, this.w, this.h);
     }
   if (this.pinged) {
       this.showBorder();
@@ -36,4 +36,13 @@ CharacterButton.prototype.reset = function(){
     this.banned = false;
     this.picked = false;
     strokeWeight(0);
+};
+
+CharacterButton.prototype.pick = function(){
+    this.picked=true;
+    this.pinged=false;
+}
+
+CharacterButton.prototype.chosen = function (){
+    return (this.banned || this.picked);
 };

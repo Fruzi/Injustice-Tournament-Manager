@@ -66,11 +66,11 @@ function displayModeButtons() {
 }
 
 function mousePressed() {
-  console.log("mousePressed");
   if (level >= 0) {
       if (submitButton.contains(mouseX, mouseY) && roster.pinged) {
           submitted = true;
-          roster.reset();
+          //make the pinged char greyed out
+          roster.getCharacter_ping().pick();
       }
       roster.checkPinged(mouseX,mouseY);
   }else {
