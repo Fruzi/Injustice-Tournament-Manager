@@ -31,8 +31,9 @@ function setup() {
         if (i <= 18) {
             path = 'assets/characters/character' + '_a' + i + '.jpg';
         } else {
-            path = 'assets/characters/character' + '_b' + i - 19 + '.jpg';
+            path = 'assets/characters/character' + '_b' + (i-19) + '.jpg';
         }
+        console.log(path);
         characterArt[i] = loadImage(path);
     }
 }
