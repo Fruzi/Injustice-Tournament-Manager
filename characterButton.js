@@ -14,7 +14,7 @@ CharacterButton.prototype.show = function() {
         image(characterArt[this.index], this.x, this.y, this.w, this.h);
     }
     else{
-        image(characterArt[characterArt.length-1], this.x, this.y, this.w, this.h);
+        image(characterArt[NUM_CHARACTERS], this.x, this.y, this.w, this.h);
     }
   if (this.pinged) {
       this.showPinged();
@@ -39,12 +39,30 @@ CharacterButton.prototype.reset = function(){
     strokeWeight(0);
 };
 
-CharacterButton.prototype.pick = function(){
-    this.picked=true;
+CharacterButton.prototype.pickOrBan = function(){
+    var action = pickOrder[eventsCounter];
+    switch (action){
+        case 1:
+            player1.pushChosen(this.index);
+            this.picked=true;
+            break;
+        case 2:
+            player2.pushChosen(this.index);
+            this.picked=true;
+            break;
+        case -1:
+            player1.pushBanned(this.index);
+            this.banned=true;
+            break;
+        case -2:
+            player2.pushBanned(this.index);
+            this.banned=true;
+            break;
+    }
     this.pinged=false;
 }
 
-CharacterButton.prototype.chosen = function (){
+CharacterButton.prototype.locked = function (){
     return (this.banned || this.picked);
 };
 

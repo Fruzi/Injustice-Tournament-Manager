@@ -16,6 +16,8 @@ var y_space_between_thumbs = 1.2;
 var roster;
 var canvas_w = 1280 * 0.7;
 var canvas_h = 720 * 0.7;
+var player1;
+var player2;
 //TODO add config screen to choose which champs are owned
 var unowned = [0,1,9,17,18,19,20,36,37];
 
@@ -27,7 +29,7 @@ function preload() {
         characterArt[i] = loadImage('assets/Thumbs/thumb' + i + '.jpg');
         portraits[i] = loadImage('assets/Portraits/portrait' + i + '.png');
     }
-    characterArt[characterArt.length] = loadImage('assets/Thumbs/locked_character_thumb.jpg');
+    characterArt[NUM_CHARACTERS] = loadImage('assets/Thumbs/locked_character_thumb.jpg');
 }
 
 function setup() {
@@ -35,6 +37,8 @@ function setup() {
     imageMode(CORNER);
     createModeButtons();
     roster = new CharacterRoster(38);
+    player1 = new PlayerStack(0);
+    player2 = new PlayerStack(1);
 }
 
 function draw() {
@@ -49,6 +53,8 @@ function draw() {
     submitButton.show();
     updateRules();
     roster.show();
+    player1.show();
+    player2.show();
   }
 }
 
@@ -73,10 +79,10 @@ function mousePressed() {
       if (submitButton.contains(mouseX, mouseY) && roster.pinged) {
           submitted = true;
           //make the pinged char greyed out
-          roster.getCharacter_ping().pick();
+          roster.getCharacter_ping().pickOrBan();
           updateRules();
       }
-      roster.checkPinged(mouseX,mouseY);
+      roster.updatePing(mouseX,mouseY);
   }else {
       for (var i = 0; i < modeButtons.length; i++) {
           if (modeButtons[i].contains(mouseX, mouseY)) {

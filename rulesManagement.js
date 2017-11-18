@@ -1,4 +1,7 @@
-var rules = new Array();
+var rules = [];
+var pickOrder = [];
+var teamSize;
+var banSize;
 var rulesCreated = false;
 
 function createRules() {
@@ -14,8 +17,14 @@ function createRules() {
     rules.push("player 1 chooses:");
     rules.push("player 1 bans:");
     rules.push("player 2 chooses:");
+
+    pickOrder=[1,2,-2,1,-1,2,-2,1,-1,2];
+    teamSize=3;
+    banSize=2;
   }
   rulesCreated = true;
+  player1.createStacks(teamSize, banSize);
+  player2.createStacks(teamSize, banSize);
 }
 
 function updateRules() {

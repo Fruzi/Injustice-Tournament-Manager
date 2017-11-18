@@ -18,7 +18,7 @@ CharacterRoster.prototype.show = function(){
     for (var i=0; i<this.number_of_rows; i++){
         this.rows[i].show();
     }
-}
+};
 
 CharacterRoster.prototype.reset = function(){
     for (var i=0; i<this.number_of_rows; i++){
@@ -44,11 +44,11 @@ CharacterRoster.prototype.getCharacter_index = function(index){
     return this.rows[row].characterButtons[col];
 };
 
-CharacterRoster.prototype.checkPinged = function(mouseX,mouseY){
+CharacterRoster.prototype.updatePing = function(mouseX,mouseY){
     for (var i=0; i<this.number_of_rows; i++){
         var j=this.rows[i].checkPinged(mouseX,mouseY);
         if(j!=false){ //we found a character that was pinged, [i,j-1]
-            if(this.pinged!=false &&!this.getCharacter_ping().chosen() && !this.alreadyPinged(i,j-1)){
+            if(this.pinged!=false &&!this.getCharacter_ping().locked() && !this.alreadyPinged(i,j-1)){
                 this.getCharacter_ping().reset();
             }
             this.pinged = [i, j-1];
@@ -56,15 +56,6 @@ CharacterRoster.prototype.checkPinged = function(mouseX,mouseY){
     }
 };
 
-CharacterRoster.prototype.checkDoubleClick = function (mouseX,mouseY) {
-    if(this.pinged==false){
-        return false;
-    }
-
-    if(this.getCharacter_ping().contains(mouseX,mouseY)){
-        this.getCharacter_ping().pick();
-    }
-};
 
 CharacterRoster.prototype.alreadyPinged = function(i,j){
     return (this.pinged[0]==i && this.pinged[1]==j);
