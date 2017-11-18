@@ -26,15 +26,8 @@ function setup() {
   imageMode(CORNER);
   createRules();
   createModeButtons();
-    var path;
     for (var i = 0; i < MAX_CHARACTER_THUMBART*2; i++) {
-        if (i <= 18) {
-            path = 'assets/characters/character' + '_a' + i + '.jpg';
-        } else {
-            path = 'assets/characters/character' + '_b' + (i-19) + '.jpg';
-        }
-        console.log(path);
-        characterArt[i] = loadImage(path);
+        characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
     }
 }
 
