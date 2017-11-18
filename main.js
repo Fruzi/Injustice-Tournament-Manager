@@ -1,5 +1,5 @@
 var NUM_CHARACTERS = 38;
-var level = -1;
+var level = 0;
 var bgArt = new Array(3);
 var characterArt = new Array(NUM_CHARACTERS + 1);
 var portraits = new Array(NUM_CHARACTERS);
@@ -46,7 +46,7 @@ function draw() {
     background(bgArt[2]);
     console.log("fightmode");
     displayInput(false);
-  } else if (level == -1) { // select mode
+  } else if (level == 0) { // select mode
     background(bgArt[0]);
     displayModeButtons();
     displayInput(true);
@@ -63,9 +63,9 @@ function createModeButtons() {
   resetButton = createButton('RESET');
   resetButton.mousePressed(reset);
   resetButton.position(10, height - 15);
-  modeButtons[0] = new modeButton(600, 100, 0, "3v3 Draft");
-  modeButtons[1] = new modeButton(600, 200, 1, "5v5 Draft");
-  modeButtons[2] = new modeButton(600, 300, 2, "3v3 All Random");
+  modeButtons[0] = new modeButton(600, 100, 1, "3v3 Draft");
+  modeButtons[1] = new modeButton(600, 200, 2, "5v5 Draft");
+  modeButtons[2] = new modeButton(600, 300, 3, "3v3 All Random");
   submitButton = new SubmitButton(width / 2 - 50, height - 100, "Submit");
 }
 
@@ -86,7 +86,7 @@ function displayInput(on) {
 }
 
 function mousePressed() {
-  if (level >= 0) {
+  if (level > 0) {
     if (submitButton.contains(mouseX, mouseY) && roster.pinged) {
       submitted = true;
       //make the pinged char greyed out
@@ -94,7 +94,7 @@ function mousePressed() {
       updateRules();
     }
     roster.checkPinged(mouseX, mouseY);
-  } else {
+  } else if (level == 0) {
     for (var i = 0; i < modeButtons.length; i++) {
       if (modeButtons[i].contains(mouseX, mouseY)) {
         level = modeButtons[i].mode;
@@ -106,7 +106,7 @@ function mousePressed() {
 
 
 function reset() {
-  level = -1;
+  level = 0;
   rules = [];
   rulesCreated = false;
   eventsCounter = 0;

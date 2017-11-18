@@ -13,7 +13,7 @@ function createRules() {
     player1 = input2.value();
   }
 
-  if (level == 0) { //3v3 draft
+  if (level == 1) { //3v3 draft
     rules.push(player1 + " chooses:");
     rules.push(player2 + " chooses:");
     rules.push(player2 + " bans:");
@@ -46,7 +46,7 @@ function updateRules() {
     textSize(20);
     text('fight', 50, 50);
     pop();
-  } else if (level == 0) { //3v3 draft
+  } else if (level == 1) { //3v3 draft
     push();
     fill(255);
     textSize(20);
