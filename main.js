@@ -121,8 +121,6 @@ function mousePressed() {
 
 function reset() {
   level = 0;
-  rules = [];
-  rulesCreated = false;
-  eventsCounter = 0;
+  resetRulls();
   roster.reset();
 }
