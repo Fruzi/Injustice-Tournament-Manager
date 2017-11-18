@@ -33,6 +33,8 @@ function createRules() {
         pickOrder = [1, 2, -2, 1, -1, 2, -2, 1, -1, 2];
         teamSize = 3;
         banSize = 2;
+        playerstacks1.createStacks(teamSize, banSize);
+        playerstacks2.createStacks(teamSize, banSize);
     } else if (level == 2) { //5v5 draft
         rules.push(player1 + c);
         rules.push(player1 + b);
@@ -54,10 +56,14 @@ function createRules() {
         pickOrder = [1, -1, 2, -2, -2, 1, 1, -1, 2, 2, -2, 1, 1, -1, 2, 2];
         teamSize = 5;
         banSize = 3;
+        playerstacks1.createStacks(teamSize, banSize);
+        playerstacks2.createStacks(teamSize, banSize);
+    } else if (level == 3) {
+        teamSize = 3;
+        banSize = 0;
+        autoAssign();
     }
     rulesCreated = true;
-    playerstacks1.createStacks(teamSize, banSize);
-    playerstacks2.createStacks(teamSize, banSize);
 }
 
 function updateRules() {
@@ -96,4 +102,21 @@ function resetRules() {
     rulesCreated = false;
     eventsCounter = 0;
 
+}
+function autoAssign() {
+    var picksAndBans1 = [];
+    var picksAndBans2 = [];
+    while (picksAndBans1.length < teamSize + banSize) {
+        var rand = Math.ceil(Math.random() * NUM_CHARACTERS);
+        if (picksAndBans1.indexOf(rand) > -1) continue;
+        picksAndBans1[picksAndBans1.length] = rand;
+    }
+    while (picksAndBans2.length < teamSize + banSize) {
+        var rand = Math.ceil(Math.random() * NUM_CHARACTERS);
+        if ((picksAndBans2.indexOf(rand) > -1) || picksAndBans1.indexOf(rand)>-1) continue;
+        picksAndBans2[picksAndBans2.length] = rand;
+    }
+    playerstacks1.createStacksFromArr(picksAndBans1, teamSize);
+    playerstacks2.createStacksFromArr(picksAndBans2, teamSize);
+    level=100;
 }

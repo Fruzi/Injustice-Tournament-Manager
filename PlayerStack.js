@@ -38,6 +38,25 @@ PlayerStack.prototype.createStacks = function (teamSize, banSize) {
     }
 };
 
+PlayerStack.prototype.createStacksFromArr = function (arr, pick) {
+    var team=[];
+    var bans=[];
+    for (var i=0; i<pick;i++){
+        team.push(arr[i]);
+    }
+    for (i;i<arr.length;i++){
+        bans.push(arr[i]);
+    }
+    if (this.pos) {
+        this.pickRow = new CharacterRow1(team, (thumb_w + x_space_between_thumbs), canvas_h * 0.7);
+        this.banRow = new CharacterRow1(bans, (thumb_w + x_space_between_thumbs) + 1 / 2 * (teamSize - banSize) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7 - thumb_h - y_space_between_thumbs);
+    }
+    else {
+        this.pickRow = new CharacterRow1(team, canvas_w - (teamSize + 1) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7);
+        this.banRow = new CharacterRow1(bans, canvas_w - (teamSize + 1) * (thumb_w + x_space_between_thumbs) + 1 / 2 * (teamSize - banSize) * (thumb_w + x_space_between_thumbs), canvas_h * 0.7 - thumb_h - y_space_between_thumbs);
+    }
+};
+
 PlayerStack.prototype.show = function () {
     this.pickRow.show();
     this.banRow.show();
@@ -48,4 +67,4 @@ PlayerStack.prototype.reset = function () {
     this.currBan = 0;
     this.pickRow = [];
     this.banRow = [];
-}
+};
