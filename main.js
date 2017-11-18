@@ -46,6 +46,9 @@ function setup() {
 }
 
 function draw() {
+  if (level < 0) { //transition
+    //transition();
+  }
   if (level == 100) { //fight mode
     background(bgArt[2]);
     displayInput(false);
@@ -115,9 +118,7 @@ function mousePressed() {
       }
     }
   }
-
 }
-
 
 function reset() {
   level = 0;

@@ -62,10 +62,10 @@ function updateRules() {
   }
 }
 
-function resetRulls(){
-    teamSize=0;
-    banSize=0;
-    rules = [];
-    rulesCreated = false;
-    eventsCounter = 0;
+function resetRulls() {
+  teamSize = 0;
+  banSize = 0;
+  rules = [];
+  rulesCreated = false;
+  eventsCounter = 0;
 }
