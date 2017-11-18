@@ -17,8 +17,7 @@ CharacterButton.prototype.show = function() {
         image(characterArt[characterArt.length], this.x, this.y, this.w, this.h);
     }
   if (this.pinged) {
-      stroke([0, 255, 0]);
-      strokeWeight(3);
+      this.showBorder();
   }
 };
 
@@ -27,6 +26,14 @@ CharacterButton.prototype.contains = function(x, y) {
 };
 
 CharacterButton.prototype.showBorder = function() {
-  stroke([0, 255, 0]);
-  strokeWeight(3);
+  rect(this.x,this.y,this.w,this.h);
+  stroke(0,255,0);
+  strokeWeight(1);
+};
+
+CharacterButton.prototype.reset = function(){
+    this.pinged=false;
+    this.banned = false;
+    this.picked = false;
+    strokeWeight(0);
 };
