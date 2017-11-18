@@ -1,7 +1,8 @@
-var MAX_CHARACTER_THUMBART = 19;
+var NUM_CHARACTERS = 38;
 var level = -1;
 var bgArt = new Array(2);
-var characterArt = new Array(MAX_CHARACTER_THUMBART * 2+1);
+var characterArt = new Array(NUM_CHARACTERS+1);
+var portraits = new Array(NUM_CHARACTERS);
 var canvas;
 var resetButton;
 var modeButtons = new Array(3);
@@ -14,23 +15,26 @@ var x_space_between_thumbs = 1.07;
 var y_space_between_thumbs = 1.2;
 var roster;
 var canvas_w = 1280 * 0.7;
-var canvas_h = 720 * 0.7
+var canvas_h = 720 * 0.7;
+//TODO add config screen to choose which champs are owned
+var unowned = [0,1,9,17,18,19,20,36,37];
 
 function preload() {
-  for (var i = 0; i < bgArt.length; i++) {
-    bgArt[i] = loadImage('assets/bg/bg' + i + '.jpg');
-  }
-  roster = new CharacterRoster(38, 35, 100);
+    for (var i = 0; i < bgArt.length; i++) {
+        bgArt[i] = loadImage('assets/bg/bg' + i + '.jpg');
+    }
+    for (var i = 0; i < NUM_CHARACTERS; i++) {
+        characterArt[i] = loadImage('assets/Thumbs/thumb' + i + '.jpg');
+        portraits[i] = loadImage('assets/Portraits/portrait' + i + '.png');
+    }
+    characterArt[characterArt.length] = loadImage('assets/Thumbs/locked_character_thumb.jpg');
 }
 
 function setup() {
-  canvas = createCanvas(canvas_w, canvas_h);
-  imageMode(CORNER);
-  createModeButtons();
-  for (var i = 0; i < MAX_CHARACTER_THUMBART*2; i++) {
-      characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
-  }
-  characterArt[characterArt.length] = loadImage('assets/characters/locked_character.jpg');
+    canvas = createCanvas(canvas_w, canvas_h);
+    imageMode(CORNER);
+    createModeButtons();
+    roster = new CharacterRoster(38, 35, 100);
 }
 
 function draw() {
@@ -84,9 +88,9 @@ function mousePressed() {
 }
 
 function reset() {
-  level = -1;
-  rules = [];
-  rulesCreated = false;
-  eventsCounter = 0;
-  roster.reset();
+    level = -1;
+    rules = [];
+    rulesCreated = false;
+    eventsCounter = 0;
+    roster.reset();
 }
