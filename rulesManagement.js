@@ -16,7 +16,7 @@ function createRules() {
     player1 = input1.value();
     player2 = input2.value();
   }
-  else {
+   else {
     player2 = input1.value();
     player1 = input2.value();
   }
