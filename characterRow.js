@@ -16,7 +16,7 @@ CharacterRow.prototype.show = function() {
 
 CharacterRow.prototype.checkPinged = function(mouseX,mouseY){
     for (i = 0; i < this.length; i++) {
-        if(this.characterButtons[i].contains(mouseX,mouseY) && !this.characterButtons[i].chosen()){
+        if(this.characterButtons[i].contains(mouseX,mouseY)){
             this.characterButtons[i].pinged=true;
             return i+1;
         }

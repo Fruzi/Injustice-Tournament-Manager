@@ -25,6 +25,10 @@ function updateRules() {
   if (submitted) {
     submitted = false;
     eventsCounter++;
+    if (eventsCounter == rules.length) {
+        level = 100;
+        eventsCounter = 0;
+    }
   }
   if (level == 100) { //fight mode
     push();
@@ -36,11 +40,7 @@ function updateRules() {
     push();
     fill(255);
     textSize(20);
-    text(rules[eventsCounter], 50, 50);
+    text(rules[eventsCounter], canvas_w*0.05,canvas_h*0.08);
     pop();
-    if (eventsCounter == rules.length) {
-      level = 100;
-      eventsCounter = 0;
-    }
   }
 }

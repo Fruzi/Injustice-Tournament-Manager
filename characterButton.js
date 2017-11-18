@@ -47,3 +47,5 @@ CharacterButton.prototype.pick = function(){
 CharacterButton.prototype.chosen = function (){
     return (this.banned || this.picked);
 };
+
+

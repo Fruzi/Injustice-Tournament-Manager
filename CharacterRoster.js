@@ -1,7 +1,7 @@
 /**
  * Created by Uzi on 11/18/2017.
  */
-function CharacterRoster(size, initial_x, initial_y){
+function CharacterRoster(size){
     this.size=size;
     this.pinged=false;
     //TODO make this work better with leftovers when dividing
@@ -9,7 +9,7 @@ function CharacterRoster(size, initial_x, initial_y){
     this.number_of_rows = Math.ceil(size/this.number_of_ele_per_row);
     this.rows=new Array(this.number_of_rows);
     for(var i=0; i< this.number_of_rows; i++){
-        this.rows[i]=new CharacterRow(this.number_of_ele_per_row, i*this.number_of_ele_per_row, initial_x, initial_y+i*(thumb_h+y_space_between_thumbs));
+        this.rows[i]=new CharacterRow(this.number_of_ele_per_row, i*this.number_of_ele_per_row, canvas_w*0.05, canvas_h*0.15+i*(thumb_h+y_space_between_thumbs));
     }
     this.updateUnowned();
 }
@@ -45,15 +45,28 @@ CharacterRoster.prototype.getCharacter_index = function(index){
 };
 
 CharacterRoster.prototype.checkPinged = function(mouseX,mouseY){
-    //console.log("the number of rows to check when pinged " + this.number_of_rows);
     for (var i=0; i<this.number_of_rows; i++){
         var j=this.rows[i].checkPinged(mouseX,mouseY);
-        if(j!=false){
-            if(this.pinged!=false && !this.getCharacter_ping().chosen()){
+        if(j!=false){ //we found a character that was pinged, [i,j-1]
+            if(this.pinged!=false &&!this.getCharacter_ping().chosen() && !this.alreadyPinged(i,j-1)){
                 this.getCharacter_ping().reset();
             }
             this.pinged = [i, j-1];
         }
     }
+};
+
+CharacterRoster.prototype.checkDoubleClick = function (mouseX,mouseY) {
+    if(this.pinged==false){
+        return false;
+    }
+
+    if(this.getCharacter_ping().contains(mouseX,mouseY)){
+        this.getCharacter_ping().pick();
+    }
+};
+
+CharacterRoster.prototype.alreadyPinged = function(i,j){
+    return (this.pinged[0]==i && this.pinged[1]==j);
 };
 

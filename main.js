@@ -1,6 +1,6 @@
 var NUM_CHARACTERS = 38;
 var level = -1;
-var bgArt = new Array(2);
+var bgArt = new Array(3);
 var characterArt = new Array(NUM_CHARACTERS+1);
 var portraits = new Array(NUM_CHARACTERS);
 var canvas;
@@ -34,14 +34,13 @@ function setup() {
     canvas = createCanvas(canvas_w, canvas_h);
     imageMode(CORNER);
     createModeButtons();
-    roster = new CharacterRoster(38, 35, 100);
+    roster = new CharacterRoster(38);
 }
 
 function draw() {
   if (level == 100) { //fight mode
     background(bgArt[2]);
     console.log("fightmode");
-    updateRules();
   } else if (level == -1) { // select mode
     background(bgArt[0]);
     displayModeButtons();
@@ -75,6 +74,7 @@ function mousePressed() {
           submitted = true;
           //make the pinged char greyed out
           roster.getCharacter_ping().pick();
+          updateRules();
       }
       roster.checkPinged(mouseX,mouseY);
   }else {
@@ -86,6 +86,7 @@ function mousePressed() {
       }
   }
 }
+
 
 function reset() {
     level = -1;
