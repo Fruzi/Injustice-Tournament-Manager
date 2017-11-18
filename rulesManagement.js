@@ -3,9 +3,12 @@ var pickOrder = [];
 var teamSize;
 var banSize;
 var rulesCreated = false;
+var player1;
+var player2;
 
 function createRules() {
   rules = [];
+<<<<<<< HEAD
   if (level == 0) { //3v3 draft
     rules.push("player 1 chooses:");
     rules.push("player 2 chooses:");
@@ -21,6 +24,27 @@ function createRules() {
     pickOrder=[1,2,-2,1,-1,2,-2,1,-1,2];
     teamSize=3;
     banSize=2;
+=======
+  if (random([0, 1]) == 0) {
+    player1 = input1.value();
+    player2 = input2.value();
+  } else {
+    player2 = input1.value();
+    player1 = input2.value();
+  }
+
+  if (level == 1) { //3v3 draft
+    rules.push(player1 + " chooses:");
+    rules.push(player2 + " chooses:");
+    rules.push(player2 + " bans:");
+    rules.push(player1 + " chooses:");
+    rules.push(player1 + " bans:");
+    rules.push(player2 + " chooses:");
+    rules.push(player2 + " bans:");
+    rules.push(player1 + " chooses:");
+    rules.push(player1 + " bans:");
+    rules.push(player2 + " chooses:");
+>>>>>>> 11e991569b69c48a0baa9d238cc30aa0784cc3d4
   }
   rulesCreated = true;
   player1.createStacks(teamSize, banSize);
@@ -35,8 +59,8 @@ function updateRules() {
     submitted = false;
     eventsCounter++;
     if (eventsCounter == rules.length) {
-        level = 100;
-        eventsCounter = 0;
+      level = 100;
+      eventsCounter = 0;
     }
   }
   if (level == 100) { //fight mode
@@ -45,11 +69,11 @@ function updateRules() {
     textSize(20);
     text('fight', 50, 50);
     pop();
-  } else if (level == 0) { //3v3 draft
+  } else if (level == 1) { //3v3 draft
     push();
     fill(255);
     textSize(20);
-    text(rules[eventsCounter], canvas_w*0.05,canvas_h*0.08);
+    text(rules[eventsCounter], canvas_w * 0.05, canvas_h * 0.08);
     pop();
   }
 }
