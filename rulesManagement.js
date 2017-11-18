@@ -78,7 +78,7 @@ function updateRules() {
     textSize(20);
     text('fight', 50, 50);
     pop();
-  } else if (level == 1) { //3v3 draft
+  } else if (level > -1) { //3v3 draft
     push();
     fill(255);
     textSize(20);
