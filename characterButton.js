@@ -1,24 +1,32 @@
-function characterButton(x, y, index) {
+function CharacterButton(x, y, index) {
   this.x = x;
   this.y = y;
   this.index = index;
-  this.w = 30;
-  this.h = 50;
+  this.w = thumb_w;
+  this.h = thumb_h;
   this.pinged = false;
+  this.banned = false;
+  this.picked = false;
 }
 
-characterButton.prototype.show = function() {
-  image(characterArt[this.index], this.x, this.y, this.w, this.h);
+CharacterButton.prototype.show = function() {
+    if(!(this.banned||this.picked)){
+        image(characterArt[this.index], this.x, this.y, this.w, this.h);
+    }
+    else{
+        image(characterArt[characterArt.length], this.x, this.y, this.w, this.h);
+    }
   if (this.pinged) {
-    showBorder();
+      stroke([0, 255, 0]);
+      strokeWeight(3);
   }
-}
+};
 
-characterButton.prototype.contains = function(x, y) {
+CharacterButton.prototype.contains = function(x, y) {
   return (x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.h);
-}
+};
 
-characterButton.prototype.showBorder = function() {
+CharacterButton.prototype.showBorder = function() {
   stroke([0, 255, 0]);
   strokeWeight(3);
-}
+};

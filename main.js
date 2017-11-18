@@ -1,40 +1,45 @@
-var MAX_CHARACTER_THUMBART = 19
+var MAX_CHARACTER_THUMBART = 19;
 var level = -1;
 var bgArt = new Array(2);
-var characterArt = new Array(MAX_CHARACTER_THUMBART * 2);
+var characterArt = new Array(MAX_CHARACTER_THUMBART * 2+1);
 var characterRow1;
 var characterRow2;
 var canvas;
 var resetButton;
 var modeButtons = new Array(3);
 var submitButton;
-var rules = new Array();
 var eventsCounter = 0;
 var submitted = false;
+var thumb_h=60;
+var thumb_w=40;
 
 function preload() {
   for (var i = 0; i < bgArt.length; i++) {
     bgArt[i] = loadImage('assets/bg/bg' + i + '.jpg');
   }
   //TODO load buttons art
-  characterRow1 = new characterRow(MAX_CHARACTER_THUMBART, 0, 120, 100);
-  characterRow2 = new characterRow(MAX_CHARACTER_THUMBART, 19, 120, 170);
+  characterRow1 = new CharacterRow(MAX_CHARACTER_THUMBART, 0, 45, 100);
+  characterRow2 = new CharacterRow(MAX_CHARACTER_THUMBART, MAX_CHARACTER_THUMBART, 45, 100+thumb_h*1.2);
 }
 
 function setup() {
   canvas = createCanvas(1280 * 0.7, 720 * 0.7);
   imageMode(CORNER);
-  createRules();
   createModeButtons();
-    for (var i = 0; i < MAX_CHARACTER_THUMBART*2; i++) {
-        characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
-    }
+  for (var i = 0; i < MAX_CHARACTER_THUMBART*2; i++) {
+      characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
+  }
+  characterArt[characterArt.length] = loadImage('assets/characters/locked_character.jpg');
+  for (i = 0; i < MAX_CHARACTER_THUMBART * 2; i++) {
+      characterArt[i] = loadImage('assets/characters/character' + i + '.jpg');
+  }
 }
 
 function draw() {
   if (level == 100) { //fight mode
+    background(bgArt[2]);
     console.log("fightmode");
-    level = -1;
+    updateRules();
   } else if (level == -1) { // select mode
     background(bgArt[0]);
     displayModeButtons();
@@ -43,8 +48,6 @@ function draw() {
     submitButton.show();
     updateRules();
     displayCharacterThumbs();
-  } else { //fight
-    background(bgArt[2]);
   }
 }
 
@@ -58,11 +61,6 @@ function createModeButtons() {
   submitButton = new SubmitButton(width / 2 - 50, height - 100, "Submit");
 }
 
-function createRules() {
-  rules.push("player 1 chooses:");
-  rules.push("player 2 bans:");
-}
-
 function displayModeButtons() {
   for (var i = 0; i < modeButtons.length; i++) {
     modeButtons[i].show();
@@ -70,10 +68,12 @@ function displayModeButtons() {
 }
 
 function mousePressed() {
-  console.log("ping");
+  console.log("mousePressed");
   if (level >= 0) {
-    if (submitButton.contains(mouseX, mouseY)) {
-      submitted = true;
+      characterRow1.checkPinged(mouseX,mouseY);
+      characterRow2.checkPinged(mouseX,mouseY);
+      if (submitButton.contains(mouseX, mouseY)) {
+          submitted = true;
     }
   } else {
     for (var i = 0; i < modeButtons.length; i++) {
@@ -93,29 +93,6 @@ function displayCharacterThumbs() {
 function reset() {
   level = -1;
   rules = [];
+  rulesCreated = false;
   eventsCounter = 0;
-}
-
-function updateRules() {
-  if (submitted) {
-    submitted = false;
-    eventsCounter++;
-  }
-  if (level == 100) { //fight mode
-    push();
-    fill(255);
-    textSize(20);
-    text('fight', 50, 50);
-    pop();
-  } else if (level == 0) { //3v3 draft
-    push();
-    fill(255);
-    textSize(20);
-    text(rules[eventsCounter], 50, 50);
-    pop();
-    if (eventsCounter == rules.length) {
-      level = 100;
-      eventsCounter = 0;
-    }
-  }
 }
