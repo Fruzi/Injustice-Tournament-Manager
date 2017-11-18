@@ -64,7 +64,7 @@ CharacterButton.prototype.pickOrBan = function () {
             break;
     }
     this.pinged = false;
-}
+};
 
 CharacterButton.prototype.locked = function () {
     return (this.banned || this.picked);
