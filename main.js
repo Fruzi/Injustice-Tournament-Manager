@@ -121,9 +121,11 @@ function mousePressed() {
 }
 
 function reset() {
-  level = 0;
-  resetRules();
-  roster.reset();
-  playerstacks1.reset();
-  playerstacks2.reset();
+    input1.show();
+    input2.show();
+    level = 0;
+    resetRules();
+    roster.reset();
+    playerstacks1.reset();
+    playerstacks2.reset();
 }
