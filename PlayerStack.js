@@ -42,3 +42,10 @@ PlayerStack.prototype.show = function(){
     this.pickRow.show();
     this.banRow.show();
 };
+
+PlayerStack.prototype.reset = function(){
+    this.currPick=0;
+    this.currBan=0;
+    this.pickRow=[];
+    this.banRow=[];
+}
