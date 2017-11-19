@@ -44,33 +44,71 @@ function updateFight() {
 }
 
 function updateBattlelog() {
-  battlelog[fightsCounter].set("p1HP", sumHP(HPButtons1)); //updates hp
+  battlelog[fightsCounter].set("p1HP", sumHP(HPButtons1)); //updates hp of last match
   battlelog[fightsCounter].set("p2HP", sumHP(HPButtons2));
-  console.log("p1HP: " + battlelog[fightsCounter].get('p1HP'));
-  console.log("p2HP: " + battlelog[fightsCounter].get('p2HP'));
-  fightsCounter++;
+  fightsCounter++; //looking for new match
   if (fightsCounter < battlelog.length) {
-    updateHP();
+    updateHPbutton();
   } else {
-    //if no fights left looks for new fight
-    //adds new fights to battlelog
-
-    // if (check for more fights) {
-    //   push new fights to battlelog
-    // }
-    // else {
-    //  battlelog[0] = fightsCounter
-    //   generateSummary();
-    //   level = 101; go to summary screen
-    // }
+    addAvailableMatch();
+    updateHPbutton();
   }
 }
 
-function generateSummary() {
+function addAvailableMatch() {
+  var n = battlelog.length;
+  var nextP1pick = null;
+  var nextP1HP = 0;
+  var nextP2pick = null;
+  var nextP2HP = 0;
+  for (var i = 1; i < n; i++) {
+    if (nextP1pick === null) {
+      if (battlelog[i].get('p1HP') > 0) { //find next p1 available character
+        nextP1pick = battlelog[i].get('p1pick');
+        nextP1HP = battlelog[i].get('p1HP');
+      }
+    }
+    if (nextP2pick === null) {
+      if (battlelog[i].get('p2HP') > 0) { //find next p2 available character
+        nextP2pick = battlelog[i].get('p2pick');
+        nextP2HP = battlelog[i].get('p2HP');
+      }
+    }
+  }
+  console.log(nextP1pick);
+  console.log(nextP2pick);
+  if (nextP1pick != null && nextP2pick != null) { //add new match
+    var tmpFightMap = new Map([
+      ["p1pick", nextP1pick],
+      ["p1HP", nextP1HP],
+      ["p2pick", nextP2pick],
+      ["p2HP", nextP2HP]
+    ]);
+    battlelog.push(tmpFightMap);
+    console.log(fightsCounter);
+    console.log(tmpFightMap);
+    console.log(battlelog);
+    nextP1pick = null;
+    nextP2pick = null;
+  } else { //no Available Match
+    var winner;
+    if (nextP1pick === null) {
+      winner = player2;
+    } else {
+      winner = player1;
+    }
+    battlelog[0] = fightsCounter;
+    generateSummary(winner);
+    level = 101; //go to summary screen
+  }
+}
+
+function generateSummary(winner) {
+  console.log(winner + " is the winner!");
   //add statistics and bans to battlelog
 }
 
-function updateHP() {
+function updateHPbutton() {
   if (battlelog[fightsCounter].get('p1HP') === 2) {
     HPButtons1[0].value = 1;
     HPButtons1[1].value = 1;
@@ -86,7 +124,6 @@ function updateHP() {
     HPButtons2[1].value = 0;
   }
 }
-
 
 function sumHP(HParr) {
   var sum = 0;

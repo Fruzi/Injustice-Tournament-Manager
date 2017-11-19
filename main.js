@@ -146,6 +146,8 @@ function mousePressed() {
     if (submitButton.contains(mouseX, mouseY) && (sumHP(HPButtons1) === 0 || sumHP(HPButtons2) === 0)) {
       updateBattlelog();
     }
+  } else if (level === 101) {
+    console.log("done");
   }
 }
 
