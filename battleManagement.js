@@ -11,6 +11,7 @@
 var battleLogged = false;
 var battlelog = new Array();
 var fightsCounter = 1;
+var winner;
 
 function createbattlelog(p1picks, p2picks) {
   battlelog.push(1); //fightsCounter
@@ -49,35 +50,62 @@ function updateBattlelog() {
   fightsCounter++; //looking for new match
   if (fightsCounter < battlelog.length) {
     updateHPbutton();
+  } else if (checkForWinner()) {
+    console.log("got a winner!");
+    battlelog[0] = fightsCounter;
+    generateSummary();
+    level = 101; //go to summary screen
   } else {
     addAvailableMatch();
     updateHPbutton();
   }
 }
 
-function addAvailableMatch() {
-  var n = battlelog.length;
-  var nextP1pick = null;
-  var nextP1HP = 0;
-  var nextP2pick = null;
-  var nextP2HP = 0;
-  for (var i = 1; i < n; i++) {
-    if (nextP1pick === null) {
-      if (battlelog[i].get('p1HP') > 0) { //find next p1 available character
-        nextP1pick = battlelog[i].get('p1pick');
-        nextP1HP = battlelog[i].get('p1HP');
-      }
-    }
-    if (nextP2pick === null) {
-      if (battlelog[i].get('p2HP') > 0) { //find next p2 available character
-        nextP2pick = battlelog[i].get('p2pick');
-        nextP2HP = battlelog[i].get('p2HP');
-      }
+function checkForWinner() {
+  console.log('looking for winner...');
+  var sum = 0;
+  for (var i = 1; i < battlelog.length; i++) {
+    sum = sum + battlelog[i].get('p1HP');
+    console.log("p1sum: " + sum);
+  }
+  if (sum === 0) {
+    winner = player2;
+    return true;
+  } else {
+    sum = 0;
+    for (var i = 1; i < battlelog.length; i++) {
+      sum = sum + battlelog[i].get('p2HP');
+      console.log("p2sum: " + sum);
     }
   }
-  console.log(nextP1pick);
-  console.log(nextP2pick);
-  if (nextP1pick != null && nextP2pick != null) { //add new match
+  if (sum === 0) {
+    winner = player1;
+    return true;
+  }
+  return false;
+}
+
+function addAvailableMatch() {
+  var n = battlelog.length;
+  var nextP1pick;
+  var nextP1HP = 0;
+  var nextP2pick;
+  var nextP2HP = 0;
+  for (var i = 1; i < n; i++) {
+    if (battlelog[i].get('p1HP') > 0) { //find next p1 available character
+      nextP1pick = battlelog[i].get('p1pick');
+      nextP1HP = battlelog[i].get('p1HP');
+      break;
+    }
+  }
+  for (var i = 1; i < n; i++) {
+    if (battlelog[i].get('p2HP') > 0) { //find next p2 available character
+      nextP2pick = battlelog[i].get('p2pick');
+      nextP2HP = battlelog[i].get('p2HP');
+      break;
+    }
+  }
+  if (nextP1HP > 0 && nextP2HP > 0) { //add new match
     var tmpFightMap = new Map([
       ["p1pick", nextP1pick],
       ["p1HP", nextP1HP],
@@ -85,25 +113,12 @@ function addAvailableMatch() {
       ["p2HP", nextP2HP]
     ]);
     battlelog.push(tmpFightMap);
-    console.log(fightsCounter);
-    console.log(tmpFightMap);
+    console.log("fightsCounter: " + fightsCounter);
     console.log(battlelog);
-    nextP1pick = null;
-    nextP2pick = null;
-  } else { //no Available Match
-    var winner;
-    if (nextP1pick === null) {
-      winner = player2;
-    } else {
-      winner = player1;
-    }
-    battlelog[0] = fightsCounter;
-    generateSummary(winner);
-    level = 101; //go to summary screen
   }
 }
 
-function generateSummary(winner) {
+function generateSummary() {
   console.log(winner + " is the winner!");
   //add statistics and bans to battlelog
 }

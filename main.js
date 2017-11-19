@@ -55,8 +55,10 @@ function draw() {
     background(bgArt[2]);
     displayInput(false);
     updateRules();
+    updateFight();
     displayHPButtons();
     submitButton.show();
+    displayNames();
   } else if (level === 0) { // select mode
     background(bgArt[0]);
     displayModeButtons();
@@ -69,6 +71,9 @@ function draw() {
     roster.show();
     playerstacks1.show();
     playerstacks2.show();
+    displayNames();
+  } else if (level === 101) {
+    console.log("done!");
   }
 }
 
@@ -146,9 +151,16 @@ function mousePressed() {
     if (submitButton.contains(mouseX, mouseY) && (sumHP(HPButtons1) === 0 || sumHP(HPButtons2) === 0)) {
       updateBattlelog();
     }
-  } else if (level === 101) {
-    console.log("done");
   }
+}
+
+function displayNames() {
+  push();
+  fill(255);
+  textSize(20);
+  text(player1, canvas_w * 0.7, canvas_h * 0.9);
+  text(player2, canvas_w * 0.2, canvas_h * 0.9);
+  pop();
 }
 
 function reset() {
