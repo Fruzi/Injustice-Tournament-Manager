@@ -10,6 +10,7 @@
 
 var battleLogged = false;
 var battlelog = new Array();
+var fightsCounter = 1;
 
 function createbattlelog(p1picks, p2picks) {
   battlelog.push(1); //fightsCounter
@@ -37,25 +38,55 @@ function updateFight() {
   }
   push(); //display character portraits
   imageMode(CENTER);
-  image(portraits[battlelog[battlelog[0]].get("p1pick").index], canvas_w * 0.75, canvas_h * 0.35, 1140 * 0.35, 840 * 0.35);
-  image(portraits[battlelog[battlelog[0]].get("p2pick").index], canvas_w * 0.25, canvas_h * 0.35, 1140 * 0.35, 840 * 0.35);
+  image(portraits[battlelog[fightsCounter].get("p1pick").index], canvas_w * 0.75, canvas_h * 0.35, 1140 * 0.35, 840 * 0.35);
+  image(portraits[battlelog[fightsCounter].get("p2pick").index], canvas_w * 0.25, canvas_h * 0.35, 1140 * 0.35, 840 * 0.35);
   pop(); //TODO resize ALL art
 }
 
 function updateBattlelog() {
-  //adds new fights to battlelog
+  battlelog[fightsCounter].set("p1HP", sumHP(HPButtons1)); //updates hp
+  battlelog[fightsCounter].set("p2HP", sumHP(HPButtons2));
+  console.log("p1HP: " + battlelog[fightsCounter].get('p1HP'));
+  console.log("p2HP: " + battlelog[fightsCounter].get('p2HP'));
+  fightsCounter++;
+  if (fightsCounter < battlelog.length) {
+    updateHP();
+  } else {
+    //if no fights left looks for new fight
+    //adds new fights to battlelog
 
-  // if (check for more fights) {
-  //   //push new fights to battlelog
-  // }
-  // else {
-  //   generateSummary();
-  // }
+    // if (check for more fights) {
+    //   push new fights to battlelog
+    // }
+    // else {
+    //  battlelog[0] = fightsCounter
+    //   generateSummary();
+    //   level = 101; go to summary screen
+    // }
+  }
 }
 
 function generateSummary() {
   //add statistics and bans to battlelog
 }
+
+function updateHP() {
+  if (battlelog[fightsCounter].get('p1HP') === 2) {
+    HPButtons1[0].value = 1;
+    HPButtons1[1].value = 1;
+  } else {
+    HPButtons1[0].value = 1;
+    HPButtons1[1].value = 0;
+  }
+  if (battlelog[fightsCounter].get('p2HP') === 2) {
+    HPButtons2[0].value = 1;
+    HPButtons2[1].value = 1;
+  } else {
+    HPButtons2[0].value = 1;
+    HPButtons2[1].value = 0;
+  }
+}
+
 
 function sumHP(HParr) {
   var sum = 0;
@@ -68,4 +99,8 @@ function sumHP(HParr) {
 function resetBattlelog() {
   battleLogged = false;
   battlelog = [];
+  for (var i = 0; i < HPButtons1.length; i++) {
+    HPButtons1[i].value = 1;
+    HPButtons2[i].value = 1;
+  }
 }

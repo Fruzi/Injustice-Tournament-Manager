@@ -81,8 +81,8 @@ function createModeButtons() {
   modeButtons[2] = new ModeButton(600, 300, 3, "3v3 All Random");
   submitButton = new SubmitButton(width / 2 - 50, height - 100, "Submit");
   for (var i = 0; i < HPButtons1.length; i++) {
-    HPButtons1[i] = new HPButton(i * 50 + canvas_w * 0.2, canvas_h * 0.75);
-    HPButtons2[i] = new HPButton(i * 50 + canvas_w * 0.8 - 80, canvas_h * 0.75);
+    HPButtons1[i] = new HPButton(i * 50 + canvas_w * 0.8 - 80, canvas_h * 0.75);
+    HPButtons2[i] = new HPButton(i * 50 + canvas_w * 0.2, canvas_h * 0.75);
   }
 }
 
@@ -144,8 +144,7 @@ function mousePressed() {
       }
     }
     if (submitButton.contains(mouseX, mouseY) && (sumHP(HPButtons1) === 0 || sumHP(HPButtons2) === 0)) {
-      console.log(sumHP(HPButtons1));
-      //submit => update hp, update log
+      updateBattlelog();
     }
   }
 }

@@ -23,5 +23,4 @@ HPButton.prototype.contains = function(x, y) {
 
 HPButton.prototype.toggle = function() {
   this.value = (this.value + 1) % 2
-  console.log(this.value);
 }
