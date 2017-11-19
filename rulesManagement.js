@@ -88,7 +88,7 @@ function updateRules() {
     if (!battleLogged) {
       createbattlelog(playerstacks1.pickRow.characterButtons, playerstacks2.pickRow.characterButtons);
     }
-    updatebattlelog();
+    updateFight();
   } else if (level > 0) { //draft
     push();
     fill(255);

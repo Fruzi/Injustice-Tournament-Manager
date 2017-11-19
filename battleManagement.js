@@ -8,11 +8,11 @@
 //   }
 // ]
 
-var battleLogged = false; //TODO add to reset
-var battlelog = new Array(); //TODO add to reset
+var battleLogged = false;
+var battlelog = new Array();
 
 function createbattlelog(p1picks, p2picks) {
-  battlelog.push(0); //fightsCounter
+  battlelog.push(1); //fightsCounter
   for (var i = 0; i < p1picks.length; i++) {
     var tmpFightMap = new Map([
       ["p1pick", p1picks[i]], //CharacterButton
@@ -23,23 +23,28 @@ function createbattlelog(p1picks, p2picks) {
     battlelog.push(tmpFightMap);
   }
   // console.log(battlelog[1].get("p1pick") instanceof CharacterButton); //true
-  console.log(battlelog[1].get("p1pick"));
   battleLogged = true;
 }
 
-function updatebattlelog() {
-  if (battlelog[0] == 0) { //1st time?
-    battlelog[0] = 1;
-  } else {
-    for (var i = 1; i < battlelog.length; i++) {
-      if (battlelog[i].get('p1HP') > 0) {
-        battlelog[i].get('p1pick').show();
-      }
-      if (battlelog[i].get('p2HP') > 0) {
-        battlelog[i].get('p2pick').show();
-      }
+function updateFight() {
+  for (var i = 1; i < battlelog.length; i++) { //display playable character thumbs
+    if (battlelog[i].get('p1HP') > 0) {
+      battlelog[i].get('p1pick').show();
+    }
+    if (battlelog[i].get('p2HP') > 0) {
+      battlelog[i].get('p2pick').show();
     }
   }
+  push(); //display character portraits
+  imageMode(CENTER);
+  image(portraits[battlelog[battlelog[0]].get("p1pick").index], canvas_w * 0.75, canvas_h * 0.35, 1140 * 0.35, 840 * 0.35);
+  image(portraits[battlelog[battlelog[0]].get("p2pick").index], canvas_w * 0.25, canvas_h * 0.35, 1140 * 0.35, 840 * 0.35);
+  pop(); //TODO resize ALL art
+}
+
+function updateBattlelog() {
+  //adds new fights to battlelog
+
   // if (check for more fights) {
   //   //push new fights to battlelog
   // }
@@ -50,4 +55,9 @@ function updatebattlelog() {
 
 function generateSummary() {
   //add statistics and bans to battlelog
+}
+
+function resetBattlelog() {
+  battleLogged = false;
+  battlelog = [];
 }

@@ -129,4 +129,5 @@ function reset() {
   roster.reset();
   playerstacks1.reset();
   playerstacks2.reset();
+  resetBattlelog();
 }
