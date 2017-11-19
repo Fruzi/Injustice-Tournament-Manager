@@ -86,9 +86,9 @@ function updateRules() {
     text('Fight', 50, 50);
     pop();
     if (!battleLogged) {
-      createBattleLog(playerstacks1.pickRow.characterButtons, playerstacks2.pickRow.characterButtons);
+      createbattlelog(playerstacks1.pickRow.characterButtons, playerstacks2.pickRow.characterButtons);
     }
-    updateBattleLog();
+    updatebattlelog();
   } else if (level > 0) { //draft
     push();
     fill(255);
