@@ -20,6 +20,8 @@ var playerstacks1;
 var playerstacks2;
 //TODO add config screen to choose which champs are owned
 var unowned = [0, 1, 9, 17, 18, 19, 20, 36, 37];
+var HPButtons1 = new Array(2);
+var HPButtons2 = new Array(2);
 
 function preload() {
   for (var i = 0; i < bgArt.length; i++) {
@@ -53,6 +55,8 @@ function draw() {
     background(bgArt[2]);
     displayInput(false);
     updateRules();
+    displayHPButtons();
+    submitButton.show();
   } else if (level === 0) { // select mode
     background(bgArt[0]);
     displayModeButtons();
@@ -76,11 +80,22 @@ function createModeButtons() {
   modeButtons[1] = new ModeButton(600, 200, 2, "5v5 Draft");
   modeButtons[2] = new ModeButton(600, 300, 3, "3v3 All Random");
   submitButton = new SubmitButton(width / 2 - 50, height - 100, "Submit");
+  for (var i = 0; i < HPButtons1.length; i++) {
+    HPButtons1[i] = new HPButton(i * 50 + canvas_w * 0.2, canvas_h * 0.75);
+    HPButtons2[i] = new HPButton(i * 50 + canvas_w * 0.8 - 80, canvas_h * 0.75);
+  }
 }
 
 function displayModeButtons() {
   for (var i = 0; i < modeButtons.length; i++) {
     modeButtons[i].show();
+  }
+}
+
+function displayHPButtons() {
+  for (var i = 0; i < HPButtons1.length; i++) {
+    HPButtons1[i].show();
+    HPButtons2[i].show();
   }
 }
 
@@ -103,7 +118,14 @@ function mousePressed() {
         break;
       }
     }
-  } else if (level > 0) {
+  } else if (level === 0) {
+    for (i = 0; i < modeButtons.length; i++) {
+      if (modeButtons[i].contains(mouseX, mouseY)) {
+        level = modeButtons[i].mode;
+        break;
+      }
+    }
+  } else if (level > 0 && level < 100) {
     if (submitButton.contains(mouseX, mouseY) && roster.pinged) {
       submitted = true;
       //make the pinged char greyed out
@@ -111,12 +133,19 @@ function mousePressed() {
       updateRules();
     }
     roster.updatePing(mouseX, mouseY);
-  } else if (level === 0) {
-    for (i = 0; i < modeButtons.length; i++) {
-      if (modeButtons[i].contains(mouseX, mouseY)) {
-        level = modeButtons[i].mode;
+  } else if (level === 100) { //battle mode
+    for (i = 0; i < HPButtons1.length; i++) {
+      if (HPButtons1[i].contains(mouseX, mouseY)) {
+        HPButtons1[i].toggle();
+        break;
+      } else if (HPButtons2[i].contains(mouseX, mouseY)) {
+        HPButtons2[i].toggle();
         break;
       }
+    }
+    if (submitButton.contains(mouseX, mouseY) && (sumHP(HPButtons1) === 0 || sumHP(HPButtons2) === 0)) {
+      console.log(sumHP(HPButtons1));
+      //submit => update hp, update log
     }
   }
 }

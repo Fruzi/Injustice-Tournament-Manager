@@ -98,7 +98,6 @@ function updateRules() {
   }
 }
 
-
 function resetRules() {
   teamSize = 0;
   banSize = 0;

@@ -57,6 +57,14 @@ function generateSummary() {
   //add statistics and bans to battlelog
 }
 
+function sumHP(HParr) {
+  var sum = 0;
+  for (var i = 0; i < HParr.length; i++) {
+    sum = sum + HParr[i].value;
+  }
+  return sum;
+}
+
 function resetBattlelog() {
   battleLogged = false;
   battlelog = [];
