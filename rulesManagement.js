@@ -112,12 +112,12 @@ function autoAssign() {
   var picksAndBans2 = [];
   while (picksAndBans1.length < teamSize + banSize) {
     var rand = Math.ceil(Math.random() * NUM_CHARACTERS);
-    if (picksAndBans1.indexOf(rand) > -1) continue;
+    if ((picksAndBans1.indexOf(rand) > -1) || (unowned.indexOf(rand) > -1)) continue;
     picksAndBans1[picksAndBans1.length] = rand;
   }
   while (picksAndBans2.length < teamSize + banSize) {
     rand = Math.ceil(Math.random() * NUM_CHARACTERS);
-    if ((picksAndBans2.indexOf(rand) > -1) || picksAndBans1.indexOf(rand) > -1) continue;
+    if ((picksAndBans2.indexOf(rand) > -1) || (picksAndBans1.indexOf(rand) > -1) || (unowned.indexOf(rand) > -1)) continue;
     picksAndBans2[picksAndBans2.length] = rand;
   }
   playerstacks1.createStacksFromArr(picksAndBans1, teamSize);
