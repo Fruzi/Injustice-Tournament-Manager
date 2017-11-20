@@ -32,6 +32,7 @@ function preload() {
     portraits[i] = loadImage('assets/Portraits/portrait' + i + '.png');
   }
   characterArt[NUM_CHARACTERS] = loadImage('assets/Thumbs/locked_character_thumb.jpg');
+  loadBG();
 }
 
 function setup() {
@@ -48,6 +49,9 @@ function setup() {
 }
 
 function draw() {
+  background(0);
+  updateBG();
+  drawBG();
   if (level < 0) { //transition
     //transition();
   }
@@ -60,7 +64,7 @@ function draw() {
     submitButton.show();
     displayNames();
   } else if (level === 0) { // select mode
-    background(bgArt[0]);
+    // background(bgArt[0]);
     displayModeButtons();
     displayInput(true);
   } else if (level < 100) { //game modes
