@@ -26,14 +26,14 @@ CharacterButton.prototype.contains = function (x, y) {
 };
 
 CharacterButton.prototype.showPinged = function () {
+    push();
     stroke(0, 255, 0);
     strokeWeight(1);
     var c = color(0, 0);
     fill(c);
     rect(this.x, this.y, this.w, this.h);
-
-
     image(portraits[this.index], canvas_w / 2.5, canvas_h / 2.2, canvas_w / 5, canvas_h / 2.7);
+    pop();
 };
 
 CharacterButton.prototype.reset = function () {
